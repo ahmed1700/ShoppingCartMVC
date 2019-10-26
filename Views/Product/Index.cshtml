@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ShoppingCart.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+<div id="productsWrapper" class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-sm-3">
+            <a asp-page="/order" asp-route-id="@product.Id" title="Order @product.Name">
+                <div class="productInfo">
+                    <h3>@product.Name</h3>
+                    <img class="product-image img-fluid img-thumbnail" src="~/Images/Products/Thumbnails/@product.ImageName"
+                         alt="Image of @product.Name" />
+                    <p class="description">@product.Description</p>
+                </div>
+            </a>
+
+            <div class="action">
+                <p class="price float-left">$@string.Format("{0:f}", product.Price)</p>
+                <a class="btn btn-sm btn-danger order-button float-right"
+                   asp-controller="Cart" asp-action="Buy" asp-route-id="@product.Id"
+                   title="Order @product.Name">Add to Cart</a>
+            </div>
+        </div>
+    }
+</div>
+
+
